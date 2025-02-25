@@ -20,7 +20,7 @@ class _LoginParentsState extends State<LoginParents> {
       print("Parola: ${_passwordController2.text}");
 
       // Giriş başarılıysa HomePage'e yönlendirme
-      Navigator.pushReplacement(
+      Navigator.pushReplacement( 
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
       );

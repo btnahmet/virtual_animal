@@ -3,6 +3,7 @@ import 'package:virtual_animal/screens/animals/bird.dart';
 import 'package:virtual_animal/screens/animals/cat.dart';
 import 'package:virtual_animal/screens/animals/dog.dart';
 import 'package:virtual_animal/screens/parents/login_parents.dart';
+import 'package:virtual_animal/screens/parents/page_parents.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -130,7 +131,7 @@ class _HomePageState extends State<HomePage> {
           print("Ana Sayfaya Dön");
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LoginParents()),
+            MaterialPageRoute(builder: (context) => PageParents()),
           );
         },
         style: ElevatedButton.styleFrom(

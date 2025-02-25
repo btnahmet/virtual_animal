@@ -99,7 +99,7 @@ void updateStatus(String action) {
       height: 150,
       width: screenWidth * 0.9,
       child: BarChart(
-  BarChartData(
+    BarChartData(
     maxY: 100, // Y ekseni maksimum 100
     barGroups: [
       _buildBarGroup(0, "Sağlık", health),
