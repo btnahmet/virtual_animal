@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_animal/screens/login.dart';
-import 'package:flutter/gestures.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,7 +48,7 @@ class _RegisterState extends State<Register> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(190, 252, 249, 249),
+      backgroundColor: const Color.fromARGB(190, 252, 249, 249),
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -65,7 +64,7 @@ class _RegisterState extends State<Register> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: screenHeight * 0.69,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xFFB65C2C),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
@@ -174,7 +173,7 @@ class _RegisterState extends State<Register> {
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide.none,
           ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {

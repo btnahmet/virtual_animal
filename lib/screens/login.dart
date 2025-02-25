@@ -49,8 +49,8 @@ class _LoginState extends State<Login> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: screenHeight * 0.6,
-              decoration: BoxDecoration(
-                color: const Color(0xFFB65C2C),
+              decoration: const BoxDecoration(
+                color: Color(0xFFB65C2C),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 30),

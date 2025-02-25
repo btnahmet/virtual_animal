@@ -66,8 +66,8 @@ class _DogState extends State<Dog> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: screenHeight * 0.6,
-              decoration: BoxDecoration(
-                color: const Color(0xFFB65C2C),
+              decoration: const BoxDecoration(
+                color: Color(0xFFB65C2C),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 20),
@@ -114,9 +114,9 @@ class _DogState extends State<Dog> {
             _buildBarGroup(2, "Açlık", hunger),
           ],
           titlesData: FlTitlesData(
-            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
@@ -136,7 +136,7 @@ class _DogState extends State<Dog> {
             ),
           ),
           borderData: FlBorderData(show: false),
-          gridData: FlGridData(show: false),
+          gridData: const FlGridData(show: false),
         ),
       ),
     );

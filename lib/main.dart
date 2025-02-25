@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_animal/screens/home_page.dart';
-import 'package:virtual_animal/screens/login.dart';
-import 'package:virtual_animal/screens/register.dart';
-import 'screens/register.dart'; // Register sınıfını dahil ettik
+// Register sınıfını dahil ettik
 
 void main() {
   runApp(const MyApp());

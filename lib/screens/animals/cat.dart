@@ -30,31 +30,7 @@ void updateStatus(String action) {
       hunger = (hunger + 8).clamp(0, 100);
     }
   });
-
-  Future.delayed(const Duration(milliseconds: 300), () {
-    setState(() {}); // Yavaşça güncellenmesi için gecikme ekledik
-  });
 }
-
-  // void updateStatus(String action) {
-  //   setState(() {
-  //     if (action == "feed") {       // Hayvanı Besle
-  //       health = (health + 5).clamp(0, 100); // Daha yavaş artış
-  //       happiness = (happiness + 5).clamp(0, 100);
-  //       hunger = (hunger - 5).clamp(0, 100); // Daha hızlı düşüş
-  //     } else if (action == "clean") {
-  //       // Hayvanı Temizle
-  //       health = (health + 5).clamp(0, 100);
-  //       happiness = (happiness + 5).clamp(0, 100);
-  //       // Açlık değişmiyor
-  //     } else if (action == "play") {
-  //       // Hayvan ile Oyun Oyna
-  //       health = (health + 5).clamp(0, 100);
-  //       happiness = (happiness + 5).clamp(0, 100);
-  //       hunger = (hunger + 5).clamp(0, 100); // Açlık daha yavaş artacak
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +54,8 @@ void updateStatus(String action) {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: screenHeight * 0.659,
-              decoration: BoxDecoration(
-                color: const Color(0xFFB65C2C),
+              decoration: const BoxDecoration(
+                color: Color(0xFFB65C2C),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
               padding: EdgeInsets.symmetric(
@@ -123,41 +99,90 @@ void updateStatus(String action) {
       height: 150,
       width: screenWidth * 0.9,
       child: BarChart(
-        BarChartData(
-          barGroups: [
-            _buildBarGroup(0, "Sağlık", health),
-            _buildBarGroup(1, "Mutluluk", happiness),
-            _buildBarGroup(2, "Açlık", hunger),
-          ],
-          titlesData: FlTitlesData(
-            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, meta) {
-                  switch (value.toInt()) {
-                    case 0:
-                      return const Text("Sağlık",
-                          style: TextStyle(color: Colors.white));
-                    case 1:
-                      return const Text("Mutluluk",
-                          style: TextStyle(color: Colors.white));
-                    case 2:
-                      return const Text("Açlık",
-                          style: TextStyle(color: Colors.white));
-                    default:
-                      return Container();
-                  }
-                },
-              ),
-            ),
+  BarChartData(
+    maxY: 100, // Y ekseni maksimum 100
+    barGroups: [
+      _buildBarGroup(0, "Sağlık", health),
+      _buildBarGroup(1, "Mutluluk", happiness),
+      _buildBarGroup(2, "Açlık", hunger),
+    ],
+    titlesData: FlTitlesData(
+      // SOL Y EKSENİ (YÜZDELER)
+      leftTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          interval: 10,
+          getTitlesWidget: (value, meta) => Text(
+            '${value.toInt()}',
+            style: const TextStyle(color: Colors.white, fontSize: 12),
           ),
-          borderData: FlBorderData(show: false),
-          gridData: FlGridData(show: false),
         ),
       ),
+      // SAĞ, ÜST VE ALT EKSENLERİ KAPAT
+      rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      // ALT X EKSENİ (SAĞLIK/MUTLULUK/AÇLIK)
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          getTitlesWidget: (value, meta) {
+            switch (value.toInt()) {
+              case 0:
+                return const Text("Sağlık", style: TextStyle(color: Colors.white));
+              case 1:
+                return const Text("Mutluluk", style: TextStyle(color: Colors.white));
+              case 2:
+                return const Text("Açlık", style: TextStyle(color: Colors.white));
+              default:
+                return Container();
+            }
+          },
+        ),
+      ),
+    ),
+    borderData: FlBorderData(show: false),
+    gridData: const FlGridData(show: false),
+  ),
+),
+      // BarChart(
+      //   BarChartData(
+      //     maxY: 100, // Maksimum değer 100 olarak ayarlandı
+      //     barGroups: [
+      //       _buildBarGroup(0, "Sağlık", health),
+      //       _buildBarGroup(1, "Mutluluk", happiness),
+      //       _buildBarGroup(2, "Açlık", hunger),
+      //     ],
+      //     titlesData: FlTitlesData(
+      //       leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      //       rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      //       topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      //       bottomTitles: AxisTitles(
+      //         sideTitles: SideTitles(
+      //           showTitles: true,
+      //           interval: 20,
+      //           getTitlesWidget: (value, meta) => Text('${value.toInt()}%');
+      //           {
+      //             switch (value.toInt()) {
+      //               case 0:
+      //                 return const Text("Sağlık",
+      //                     style: TextStyle(color: Colors.white));
+      //               case 1:
+      //                 return const Text("Mutluluk",
+      //                     style: TextStyle(color: Colors.white));
+      //               case 2:
+      //                 return const Text("Açlık",
+      //                     style: TextStyle(color: Colors.white));
+      //               default:
+      //                 return Container();
+      //             }
+      //           },
+      //         ),
+      //       ),
+      //     ),
+      //     borderData: FlBorderData(show: false),
+      //     gridData: const FlGridData(show: false),
+      //   ),
+      // ),
     );
   }
 
@@ -166,7 +191,7 @@ void updateStatus(String action) {
       x: x,
       barRods: [
         BarChartRodData(
-          toY: value / 100,
+          toY: value,
           color: Colors.orangeAccent,
           width: 15,
           borderRadius: BorderRadius.circular(5),
