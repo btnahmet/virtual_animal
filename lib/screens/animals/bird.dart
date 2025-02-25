@@ -1,18 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// class Bird extends StatefulWidget {
-//   const Bird({super.key});
-
-//   @override
-//   State<Bird> createState() => _BirdState();
-// }
-
-// class _BirdState extends State<Bird> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart'; // Grafik için kütüphane ekledik
 
@@ -25,21 +10,23 @@ class Bird extends StatefulWidget {
 
 class _BirdState extends State<Bird> {
   // Örnek sağlık, mutluluk ve açlık değerleri
-  double health = 80;
-  double happiness = 60;
-  double hunger = 40;
+  double health = 0;
+  double happiness = 0;
+  double hunger = 0;
 
   void updateStatus(String action) {
     setState(() {
       if (action == "feed") {
-        hunger = (hunger - 10).clamp(0, 100);
-        health = (health + 5).clamp(0, 100);
-      } else if (action == "clean") {
         health = (health + 10).clamp(0, 100);
         happiness = (happiness + 5).clamp(0, 100);
+        hunger = (hunger - 15).clamp(0, 100);
+      } else if (action == "clean") {
+        health = (health + 8).clamp(0, 100);
+        happiness = (happiness + 6).clamp(0, 100);
       } else if (action == "play") {
+        health = (health + 5).clamp(0, 100);
         happiness = (happiness + 10).clamp(0, 100);
-        hunger = (hunger + 5).clamp(0, 100);
+        hunger = (hunger + 8).clamp(0, 100);
       }
     });
   }
@@ -55,11 +42,11 @@ class _BirdState extends State<Bird> {
         alignment: Alignment.topCenter,
         children: [
           Positioned(
-            top: screenHeight * 0.1,
+            top: screenHeight * 0.157,
             child: Image.asset(
               'assets/images/bird.png',
-              width: screenWidth * 0.35,
-              height: screenWidth * 0.35,
+              width: screenWidth * 0.5,
+              height: screenWidth * 0.5,
             ),
           ),
           Align(
@@ -70,7 +57,8 @@ class _BirdState extends State<Bird> {
                 color: Color(0xFFB65C2C),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05, vertical: 20),
               child: Column(
                 children: [
                   const Text(
@@ -87,12 +75,15 @@ class _BirdState extends State<Bird> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildActionButton("Hayvanı Besle", () => updateStatus("feed")),
-                      _buildActionButton("Hayvanı Temizle", () => updateStatus("clean")),
+                      _buildActionButton(
+                          "Hayvanı Besle", () => updateStatus("feed")),
+                      _buildActionButton(
+                          "Hayvanı Temizle", () => updateStatus("clean")),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  _buildActionButton("Hayvan ile Oyun Oyna", () => updateStatus("play")),
+                  _buildActionButton(
+                      "Hayvan ile Oyun Oyna", () => updateStatus("play")),
                 ],
               ),
             ),
@@ -108,26 +99,44 @@ class _BirdState extends State<Bird> {
       width: screenWidth * 0.9,
       child: BarChart(
         BarChartData(
+          maxY: 100, // Y ekseni maksimum 100
           barGroups: [
             _buildBarGroup(0, "Sağlık", health),
             _buildBarGroup(1, "Mutluluk", happiness),
             _buildBarGroup(2, "Açlık", hunger),
           ],
           titlesData: FlTitlesData(
-            leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            // SOL Y EKSENİ (YÜZDELER)
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                interval: 10,
+                getTitlesWidget: (value, meta) => Text(
+                  '${value.toInt()}',
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+            ),
+            // SAĞ, ÜST VE ALT EKSENLERİ KAPAT
+            rightTitles:
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles:
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            // ALT X EKSENİ (SAĞLIK/MUTLULUK/AÇLIK)
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
                   switch (value.toInt()) {
                     case 0:
-                      return const Text("Sağlık", style: TextStyle(color: Colors.white));
+                      return const Text("Sağlık",
+                          style: TextStyle(color: Colors.white));
                     case 1:
-                      return const Text("Mutluluk", style: TextStyle(color: Colors.white));
+                      return const Text("Mutluluk",
+                          style: TextStyle(color: Colors.white));
                     case 2:
-                      return const Text("Açlık", style: TextStyle(color: Colors.white));
+                      return const Text("Açlık",
+                          style: TextStyle(color: Colors.white));
                     default:
                       return Container();
                   }
@@ -166,7 +175,8 @@ class _BirdState extends State<Bird> {
       ),
       child: Text(
         text,
-        style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+        style: const TextStyle(
+            color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );
   }
