@@ -21,9 +21,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
-      backgroundColor: Color.fromARGB(255, 241, 153, 105), // Arka plan rengi
+      backgroundColor: const Color.fromARGB(255, 241, 153, 105), // Arka plan rengi
       ),
-      backgroundColor: Color.fromARGB(255, 241, 153, 105), // Arka plan rengi
+      backgroundColor: const Color.fromARGB(255, 241, 153, 105), // Arka plan rengi
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -131,11 +131,11 @@ class _HomePageState extends State<HomePage> {
           print("Ana Sayfaya Dön");
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PageParents()),
+            MaterialPageRoute(builder: (context) => const PageParents()),
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 255, 160, 122), // AppBar rengi
+          backgroundColor: const Color.fromARGB(255, 255, 160, 122), // AppBar rengi
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),

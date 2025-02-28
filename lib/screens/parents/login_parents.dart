@@ -64,7 +64,7 @@ class _LoginParentsState extends State<LoginParents> {
                 child: ElevatedButton(
                   onPressed: _submitForm,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 250, 102, 44),
+                    backgroundColor: const Color.fromARGB(255, 250, 102, 44),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
