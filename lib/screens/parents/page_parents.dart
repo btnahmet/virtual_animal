@@ -123,6 +123,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:virtual_animal/screens/parents/ilerleme_goruntuleme/hayvan_sec.dart';
 import 'package:virtual_animal/screens/parents/ilerleme_goruntuleme/ilerleme_goruntuleme_cat.dart'; // İlerleme ekranı import edildi
 
 class PageParents extends StatefulWidget {
@@ -180,7 +181,7 @@ class _PageParentsState extends State<PageParents> {
                   _buildButton("İlerlemeyi Görüntüle", () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const IlerlemeGoruntuleme()),
+                      MaterialPageRoute(builder: (context) => const HayvanSec()),
                     );
                   }),
                   const SizedBox(height: 30),

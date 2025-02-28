@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:virtual_animal/screens/animals/bird.dart';
 import 'package:virtual_animal/screens/animals/cat.dart';
 import 'package:virtual_animal/screens/animals/dog.dart';
+import 'package:virtual_animal/screens/game.dart';
 import 'package:virtual_animal/screens/parents/login_parents.dart';
 import 'package:virtual_animal/screens/parents/page_parents.dart';
 
@@ -131,7 +132,7 @@ class _HomePageState extends State<HomePage> {
           print("Ana Sayfaya Dön");
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const PageParents()),
+            MaterialPageRoute(builder: (context) =>  Game()),
           );
         },
         style: ElevatedButton.styleFrom(

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-class IlerlemeGoruntulemeCat extends StatefulWidget {
-  const IlerlemeGoruntulemeCat({super.key});
+class IlerlemeGoruntulemeDog extends StatefulWidget {
+  const IlerlemeGoruntulemeDog({super.key});
 
   @override
-  State<IlerlemeGoruntulemeCat> createState() => _IlerlemeGoruntulemeCatState();
+  State<IlerlemeGoruntulemeDog> createState() => _IlerlemeGoruntulemeDogState();
 }
 
-class _IlerlemeGoruntulemeCatState extends State<IlerlemeGoruntulemeCat> {
+class _IlerlemeGoruntulemeDogState extends State<IlerlemeGoruntulemeDog> {
   double healthAvg = 75; // Sağlık ortalaması
   double happinessAvg = 60; // Mutluluk ortalaması
   double hungerAvg = 40; // Açlık ortalaması
@@ -26,7 +26,7 @@ class _IlerlemeGoruntulemeCatState extends State<IlerlemeGoruntulemeCat> {
           Positioned(
             top: screenHeight * 0.13,
             child: Image.asset(
-              'assets/images/cat.png',
+              'assets/images/dog.png',
               width: screenWidth * 0.45,
               height: screenWidth * 0.45,
             ),
