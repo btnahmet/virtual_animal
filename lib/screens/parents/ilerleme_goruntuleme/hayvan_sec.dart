@@ -126,14 +126,9 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import 'package:virtual_animal/screens/animals/bird.dart';
-import 'package:virtual_animal/screens/animals/cat.dart';
-import 'package:virtual_animal/screens/animals/dog.dart';
 import 'package:virtual_animal/screens/parents/ilerleme_goruntuleme/ilerleme_goruntuleme_bird.dart';
 import 'package:virtual_animal/screens/parents/ilerleme_goruntuleme/ilerleme_goruntuleme_cat.dart';
 import 'package:virtual_animal/screens/parents/ilerleme_goruntuleme/ilerleme_goruntuleme_dog.dart';
-import 'package:virtual_animal/screens/parents/login_parents.dart';
-import 'package:virtual_animal/screens/parents/page_parents.dart';
 
 class HayvanSec extends StatefulWidget {
   const HayvanSec({super.key});

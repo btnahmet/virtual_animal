@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_animal/screens/register.dart';
 import 'package:virtual_animal/screens/home_page.dart'; // HomePage import edildi
 
 class LoginParents extends StatefulWidget {

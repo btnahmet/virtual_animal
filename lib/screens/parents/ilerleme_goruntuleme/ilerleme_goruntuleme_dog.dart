@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class IlerlemeGoruntulemeDog extends StatefulWidget {
   const IlerlemeGoruntulemeDog({super.key});

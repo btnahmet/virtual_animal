@@ -124,7 +124,7 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:virtual_animal/screens/parents/ilerleme_goruntuleme/hayvan_sec.dart';
-import 'package:virtual_animal/screens/parents/ilerleme_goruntuleme/ilerleme_goruntuleme_cat.dart'; // İlerleme ekranı import edildi
+// İlerleme ekranı import edildi
 
 class PageParents extends StatefulWidget {
   const PageParents({super.key});
