@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart'; // Grafik için kütüphane ekledik
+import 'package:fl_chart/fl_chart.dart';
+import 'package:virtual_animal/screens/Games/game_renk_esleme.dart'; // Grafik için kütüphane ekledik
 
 class Dog extends StatefulWidget {
   const Dog({super.key});
@@ -45,14 +46,14 @@ class _DogState extends State<Dog> {
             top: screenHeight * 0.1,
             child: Image.asset(
               'assets/images/dog.png',
-              width: screenWidth * 0.35,
-              height: screenWidth * 0.35,
+              width: screenWidth * 0.4,
+              height: screenWidth * 0.4,
             ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: screenHeight * 0.6,
+              height: screenHeight * 0.659,
               decoration: const BoxDecoration(
                 color: Color(0xFFB65C2C),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
@@ -82,8 +83,15 @@ class _DogState extends State<Dog> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  _buildActionButton(
-                      "Hayvan ile Oyun Oyna", () => updateStatus("play")),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildActionButton(
+                          "Oyun Oyna", () => updateStatus("play")),
+                      _buildActionButton(
+                          "Mini Oyun", () => _navigateToGame(context)),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -180,4 +188,12 @@ class _DogState extends State<Dog> {
       ),
     );
   }
+
+  void _navigateToGame(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GameRenkEsleme()),
+    );
+  }
 }
+
