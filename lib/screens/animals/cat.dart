@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:virtual_animal/screens/Games/balloon_game.dart';
+import 'package:virtual_animal/screens/Games/game_home_page.dart';
 import 'package:virtual_animal/screens/Games/game_renk_esleme.dart'; // Grafik için kütüphane ekledik
 
 class Cat extends StatefulWidget {
@@ -193,7 +194,7 @@ class _CatState extends State<Cat> {
   void _navigateToGame(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BalloonGame()),
+      MaterialPageRoute(builder: (context) => GameHomePage()),
     );
   }
 }

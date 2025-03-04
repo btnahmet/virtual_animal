@@ -149,59 +149,62 @@ void restartGame() {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: Colors.blue[100], // Gök yüzü arka planı
-      appBar: AppBar(
-        title: const Text("Balon Patlatma Oyunu"),
-        backgroundColor: Colors.blueAccent,
-        actions: [
-          if (gameRunning && !gamePaused)
-            IconButton(
-              icon: const Icon(Icons.pause, color: Colors.white),
-              onPressed: pauseGame,
-            ),
-          if (gamePaused)
-            IconButton(
-              icon: const Icon(Icons.play_arrow, color: Colors.white),
-              onPressed: startOrResumeGame,
-            ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          Positioned(
-            top: 10,
-            left: screenWidth * 0.05,
-            child: Text(
-              "Süre: $timeLeft sn",
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Positioned(
-            top: 10,
-            right: screenWidth * 0.05,
-            child: Text(
-              "Puan: $score",
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-          ),
-          ...balloons,
-          if (!gameRunning)
-            Center(
-              child: ElevatedButton(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.blue[100], // Gök yüzü arka planı
+        appBar: AppBar(
+          title: const Text("Balon Patlatma Oyunu",
+          style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
+          backgroundColor: Colors.blueAccent,
+          actions: [
+            if (gameRunning && !gamePaused)
+              IconButton(
+                icon: const Icon(Icons.pause, color: Colors.white),
+                onPressed: pauseGame,
+              ),
+            if (gamePaused)
+              IconButton(
+                icon: const Icon(Icons.play_arrow, color: Colors.white),
                 onPressed: startOrResumeGame,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                ),
-                child: const Text(
-                  "Oyunu Başlat",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-                ),
+              ),
+          ],
+        ),
+        body: Stack(
+          children: [
+            Positioned(
+              top: 10,
+              left: screenWidth * 0.05,
+              child: Text(
+                "Süre: $timeLeft sn",
+                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
-        ],
+            Positioned(
+              top: 10,
+              right: screenWidth * 0.05,
+              child: Text(
+                "Puan: $score",
+                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
+            ...balloons,
+            if (!gameRunning)
+              Center(
+                child: ElevatedButton(
+                  onPressed: startOrResumeGame,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  ),
+                  child: const Text(
+                    "Oyunu Başlat",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
