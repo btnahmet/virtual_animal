@@ -123,7 +123,9 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:virtual_animal/screens/parents/bildirim_ayarlari/bildirim_ayarlari.dart';
 import 'package:virtual_animal/screens/parents/ilerleme_goruntuleme/hayvan_sec.dart';
+import 'package:virtual_animal/screens/parents/kullanici_yonetimi/kullanici_yonetimi.dart';
 // İlerleme ekranı import edildi
 
 class PageParents extends StatefulWidget {
@@ -165,7 +167,8 @@ class _PageParentsState extends State<PageParents> {
                 color: Color(0xFFB65C2C),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.2, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.2, vertical: 10),
               child: Column(
                 children: [
                   const Text(
@@ -181,16 +184,25 @@ class _PageParentsState extends State<PageParents> {
                   _buildButton("İlerlemeyi Görüntüle", () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const HayvanSec()),
+                      MaterialPageRoute(
+                          builder: (context) => const HayvanSec()),
                     );
                   }),
                   const SizedBox(height: 30),
                   _buildButton("Bildirim Ayarları", () {
-                    print("Bildirim Ayarları butonuna basıldı!"); // Yönlendirme ekleyebilirsin
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BildirimAyarlari()),
+                    );
                   }),
                   const SizedBox(height: 30),
                   _buildButton("Kullanıcı Yönetimi", () {
-                    print("Kullanıcı Yönetimi butonuna basıldı!"); // Yönlendirme ekleyebilirsin
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const KullaniciYonetimi()),
+                    );
                   }),
                 ],
               ),
@@ -226,7 +238,8 @@ class _PageParentsState extends State<PageParents> {
         ),
         child: Text(
           text,
-          style: const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
     );
