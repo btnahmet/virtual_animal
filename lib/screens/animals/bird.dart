@@ -197,6 +197,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:virtual_animal/screens/Games/game_home_page.dart';
 import 'animal_screen.dart';
 import 'animal_model.dart';
 import 'package:virtual_animal/screens/Games/game_renk_esleme.dart';
@@ -213,7 +214,7 @@ class Bird extends StatelessWidget {
       onGameNavigate: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => GameRenkEsleme()),
+          MaterialPageRoute(builder: (context) => GameHomePage()),
         );
       },
     );
