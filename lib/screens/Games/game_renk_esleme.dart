@@ -29,7 +29,7 @@ class _RenkEslemeEkraniState extends State<RenkEslemeEkrani> {
   final List<Color> renkler = [Colors.red, Colors.blue, Colors.green, Colors.yellow, Colors.orange];
   Color hedefRenk = Colors.red;
   int puan = 0;
-  int sure = 90;
+  int sure = 15;
   Timer? oyunZamani;
   bool oyunDevamEdiyor = false;
 
@@ -95,7 +95,7 @@ class _RenkEslemeEkraniState extends State<RenkEslemeEkrani> {
   void oyunuSifirla() {
     setState(() {
       puan = 0;
-      sure = 90;
+      sure = 15;
       oyunDevamEdiyor = false;
       rastgeleRenkSec();
     });
@@ -106,12 +106,13 @@ class _RenkEslemeEkraniState extends State<RenkEslemeEkrani> {
     if (oyunDevamEdiyor) {
       if (secilenRenk == hedefRenk) {
         setState(() {
-          puan += 2;
+          puan += 1;
           rastgeleRenkSec();
         });
-      } else {
+      } 
+      else {
         setState(() {
-          if (puan > 0) puan -= 5;
+          puan -= 1;
         });
       }
     }

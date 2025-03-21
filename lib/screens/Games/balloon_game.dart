@@ -29,7 +29,7 @@ class _BalloonGameScreenState extends State<BalloonGameScreen> {
   final List<Balloon> balloons = [];
   final Random random = Random();
   int score = 0;
-  int timeLeft = 60;
+  int timeLeft = 15;
   bool gameRunning = false;
   bool gamePaused = false;
   Timer? gameTimer;
@@ -52,7 +52,7 @@ void startOrResumeGame() {
     setState(() {
       gameRunning = true;
       gamePaused = false;
-      timeLeft = 60;
+      timeLeft = 15;
       score = 0;
       balloons.clear();
     });
@@ -111,7 +111,7 @@ void restartGame() {
   setState(() {
     balloons.clear();
     score = 0;
-    timeLeft = 60;
+    timeLeft = 15;
     gameRunning = false;
     gamePaused = false;
     gameTimer = null;
