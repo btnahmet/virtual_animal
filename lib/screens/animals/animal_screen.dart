@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:virtual_animal/screens/animals/animal_model.dart';
+import 'package:virtual_animal/database/database_helper.dart';
 
 class AnimalScreen extends StatefulWidget {
   final String animalName;
@@ -21,10 +22,42 @@ class AnimalScreen extends StatefulWidget {
 }
 
 class _AnimalScreenState extends State<AnimalScreen> {
-  void updateAnimalStatus(String action) {
+  late AnimalModel _animalModel;
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
+
+  @override
+  void initState() {
+    super.initState();
+    _animalModel = widget.animalModel;
+    _loadAnimalData();
+  }
+
+  Future<void> _loadAnimalData() async {
+    final animals = await _databaseHelper.getAnimals();
+    final animalData = animals.where((animal) => animal['type'] == widget.animalName).toList();
+    if (animalData.isNotEmpty) {
+      setState(() {
+        _animalModel = AnimalModel.fromMap(animalData.first);
+      });
+    } else {
+      // İlk kez oluşturuluyorsa veritabanına kaydet
+      _animalModel.type = widget.animalName;
+      _animalModel.lastUpdateTime = DateTime.now().toIso8601String();
+      final id = await _databaseHelper.insertAnimal(_animalModel.toMap());
+      setState(() {
+        _animalModel.id = id;
+      });
+    }
+  }
+
+  Future<void> _updateStatus(String action) async {
     setState(() {
-      widget.animalModel.updateStatus(action);
+      _animalModel.updateStatus(action);
+      _animalModel.lastUpdateTime = DateTime.now().toIso8601String();
     });
+    if (_animalModel.id != null) {
+      await _databaseHelper.updateAnimal(_animalModel.toMap());
+    }
   }
 
   @override
@@ -70,15 +103,15 @@ class _AnimalScreenState extends State<AnimalScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildActionButton("Besle", () => updateAnimalStatus("feed")),
-                      _buildActionButton("Temizle", () => updateAnimalStatus("clean")),
+                      _buildActionButton("Besle", () => _updateStatus("feed")),
+                      _buildActionButton("Temizle", () => _updateStatus("clean")),
                     ],
                   ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildActionButton("Oyna", () => updateAnimalStatus("play")),
+                      _buildActionButton("Oyna", () => _updateStatus("play")),
                       _buildActionButton("Mini Oyun", widget.onGameNavigate),
                     ],
                   ),
@@ -99,9 +132,9 @@ class _AnimalScreenState extends State<AnimalScreen> {
         BarChartData(
           maxY: 100,
           barGroups: [
-            _buildBarGroup(0, "Sağlık", widget.animalModel.health),
-            _buildBarGroup(1, "Mutluluk", widget.animalModel.happiness),
-            _buildBarGroup(2, "Açlık", widget.animalModel.hunger),
+            _buildBarGroup(0, "Sağlık", _animalModel.health),
+            _buildBarGroup(1, "Mutluluk", _animalModel.happiness),
+            _buildBarGroup(2, "Açlık", _animalModel.hunger),
           ],
           titlesData: FlTitlesData(
             leftTitles: AxisTitles(
@@ -155,41 +188,25 @@ class _AnimalScreenState extends State<AnimalScreen> {
     );
   }
 
-  // Widget _buildActionButton(String text, VoidCallback onPressed) {
-  //   return ElevatedButton(
-  //     onPressed: onPressed,
-  //     style: ElevatedButton.styleFrom(
-  //       backgroundColor: const Color(0xFFFFA07A),
-  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-  //       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-  //     ),
-  //     child: Text(
-  //       text,
-  //       style: const TextStyle(
-  //         color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-  //     ),
-  //   );
-  // }
   Widget _buildActionButton(String text, VoidCallback onPressed) {
-  return SizedBox(
-    width: 150, // Sabit genişlik (isteğe bağlı değiştirilebilir)
-    height: 60, // Sabit yükseklik
-    child: ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFFFA07A),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        padding: EdgeInsets.zero, // İç dolguyu sıfırladık
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+    return SizedBox(
+      width: 150,
+      height: 60,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFFFA07A),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+          padding: EdgeInsets.zero,
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }

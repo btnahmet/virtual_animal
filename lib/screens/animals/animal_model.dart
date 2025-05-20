@@ -22,38 +22,47 @@
 // }
 class AnimalModel {
   int? id;
+  String name;
+  String type;
   double health;
   double happiness;
   double hunger;
+  String lastUpdateTime;
 
   AnimalModel({
     this.id,
+    this.name = '',
+    this.type = '',
     this.health = 1,
     this.happiness = 1,
     this.hunger = 1,
+    this.lastUpdateTime = '',
   });
 
-  // AnimalModel'i Map'e dönüştürme (Veritabanına eklemek için)
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'name': name,
+      'type': type,
       'health': health,
       'happiness': happiness,
       'hunger': hunger,
+      'lastUpdateTime': lastUpdateTime,
     };
   }
 
-  // Map'ten AnimalModel oluşturma (Veritabanından okuma için)
   factory AnimalModel.fromMap(Map<String, dynamic> map) {
     return AnimalModel(
       id: map['id'],
-      health: map['health'],
-      happiness: map['happiness'],
-      hunger: map['hunger'],
+      name: map['name'] ?? '',
+      type: map['type'] ?? '',
+      health: (map['health'] as num).toDouble(),
+      happiness: (map['happiness'] as num).toDouble(),
+      hunger: (map['hunger'] as num).toDouble(),
+      lastUpdateTime: map['lastUpdateTime'] ?? '',
     );
   }
 
-  // Durumu güncelleme
   void updateStatus(String action) {
     if (action == "feed") {
       health = (health + 10).clamp(0, 100);
