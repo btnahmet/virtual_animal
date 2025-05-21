@@ -232,10 +232,12 @@ class _BalloonState extends State<Balloon> {
   double top = 600;
   bool isPopped = false;
   Timer? _moveTimer;
+  late final Color balloonColor;
 
   @override
   void initState() {
     super.initState();
+    balloonColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
     _moveBalloon();
   }
 
@@ -281,7 +283,7 @@ class _BalloonState extends State<Balloon> {
                 height: 70,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+                  color: balloonColor,
                 ),
               ),
       ),
