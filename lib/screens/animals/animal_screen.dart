@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:virtual_animal/screens/animals/animal_model.dart';
 import 'package:virtual_animal/database/database_helper.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class AnimalScreen extends StatefulWidget {
   final String animalName;
@@ -24,23 +26,103 @@ class AnimalScreen extends StatefulWidget {
 class _AnimalScreenState extends State<AnimalScreen> {
   late AnimalModel _animalModel;
   final DatabaseHelper _databaseHelper = DatabaseHelper();
+  final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
+  Timer? _updateTimer;
 
   @override
   void initState() {
     super.initState();
     _animalModel = widget.animalModel;
+    _initializeNotifications();
     _loadAnimalData();
+    // Her dakika parametreleri güncelle
+    _updateTimer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      _updateParameters();
+    });
   }
 
+  // Bildirim sistemini başlat
+  Future<void> _initializeNotifications() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings();
+    const InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
+    await _notifications.initialize(initializationSettings);
+  }
+
+  // Bildirim gösterme
+  Future<void> _showNotification(String title, String body) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'animal_care_channel',
+      'Hayvan Bakım Bildirimleri',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+    await _notifications.show(
+      0,
+      title,
+      body,
+      platformChannelSpecifics,
+    );
+  }
+
+  // Parametreleri güncelle
+  Future<void> _updateParameters() async {
+    if (_animalModel.lastUpdateTime.isNotEmpty) {
+      DateTime lastUpdate = DateTime.tryParse(_animalModel.lastUpdateTime) ?? DateTime.now();
+      setState(() {
+        _animalModel.updateParametersBasedOnTime(lastUpdate);
+      });
+      await _databaseHelper.updateAnimal(_animalModel.toMap());
+      _checkAndShowNotifications();
+    }
+  }
+
+  // Bildirimleri kontrol et ve göster
+  void _checkAndShowNotifications() {
+    if (_animalModel.shouldNotifyHealth()) {
+      _showNotification(
+        'Sağlık Uyarısı',
+        '${widget.animalName}ın sağlık durumu kritik seviyede!',
+      );
+    }
+    if (_animalModel.shouldNotifyHappiness()) {
+      _showNotification(
+        'Mutluluk Uyarısı',
+        '${widget.animalName}ın mutluluk seviyesi düşük!',
+      );
+    }
+    if (_animalModel.shouldNotifyHunger()) {
+      _showNotification(
+        'Açlık Uyarısı',
+        '${widget.animalName} aç!',
+      );
+    }
+  }
+
+  // Hayvan verilerini yükle
   Future<void> _loadAnimalData() async {
     final animals = await _databaseHelper.getAnimals();
     final animalData = animals.where((animal) => animal['type'] == widget.animalName).toList();
     if (animalData.isNotEmpty) {
+      AnimalModel loaded = AnimalModel.fromMap(animalData.first);
+      if (loaded.lastUpdateTime.isNotEmpty) {
+        DateTime lastUpdate = DateTime.tryParse(loaded.lastUpdateTime) ?? DateTime.now();
+        loaded.updateParametersBasedOnTime(lastUpdate);
+        await _databaseHelper.updateAnimal(loaded.toMap());
+      }
       setState(() {
-        _animalModel = AnimalModel.fromMap(animalData.first);
+        _animalModel = loaded;
       });
+      _checkAndShowNotifications();
     } else {
-      // İlk kez oluşturuluyorsa veritabanına kaydet
       _animalModel.type = widget.animalName;
       _animalModel.lastUpdateTime = DateTime.now().toIso8601String();
       final id = await _databaseHelper.insertAnimal(_animalModel.toMap());
@@ -50,6 +132,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
     }
   }
 
+  // Hayvan durumunu güncelle
   Future<void> _updateStatus(String action) async {
     setState(() {
       _animalModel.updateStatus(action);
@@ -58,6 +141,12 @@ class _AnimalScreenState extends State<AnimalScreen> {
     if (_animalModel.id != null) {
       await _databaseHelper.updateAnimal(_animalModel.toMap());
     }
+  }
+
+  @override
+  void dispose() {
+    _updateTimer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -124,6 +213,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
     );
   }
 
+  // Grafik oluştur
   Widget _buildChart(double screenWidth) {
     return SizedBox(
       height: 150,
@@ -174,6 +264,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
     );
   }
 
+  // Grafik çubukları oluştur
   BarChartGroupData _buildBarGroup(int x, String label, double value) {
     return BarChartGroupData(
       x: x,
@@ -188,6 +279,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
     );
   }
 
+  // Aksiyon butonları oluştur
   Widget _buildActionButton(String text, VoidCallback onPressed) {
     return SizedBox(
       width: 150,
