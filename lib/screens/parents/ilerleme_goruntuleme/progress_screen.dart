@@ -42,24 +42,26 @@ class ProgressScreen extends StatelessWidget {
                 horizontal: screenWidth * 0.05, 
                 vertical: 20,
               ),
-              child: Column(
-                children: [
-                  const Text(
-                    "Hayvan Bakım\nİlerlemesi",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const Text(
+                      "Hayvan Bakım\nİlerlemesi",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  _buildProgressRow("Sağlık", progress.health, Colors.green, screenWidth),
-                  const SizedBox(height: 20),
-                  _buildProgressRow("Mutluluk", progress.happiness, Colors.blue, screenWidth),
-                  const SizedBox(height: 20),
-                  _buildProgressRow("Açlık", progress.hunger, Colors.red, screenWidth),
-                ],
+                    const SizedBox(height: 30),
+                    _buildProgressRow("Sağlık", progress.health, Colors.green, screenWidth),
+                    const SizedBox(height: 20),
+                    _buildProgressRow("Mutluluk", progress.happiness, Colors.blue, screenWidth),
+                    const SizedBox(height: 20),
+                    _buildProgressRow("Açlık", progress.hunger, Colors.red, screenWidth),
+                  ],
+                ),
               ),
             ),
           ),

@@ -8,14 +8,14 @@ class BildirimAyarlari extends StatefulWidget {
 }
 
 class _BildirimAyarlariState extends State<BildirimAyarlari> {
-  bool notificationsEnabled = true;
+  bool notificationsEnabled = false;
 
-  void _showNotificationAlert(String message) {
+  void _showNotificationAlert(String message, bool isEnabled) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
+        backgroundColor: isEnabled ? Colors.green : Colors.red,
         duration: const Duration(seconds: 2),
-        backgroundColor: Colors.green,
       ),
     );
   }
@@ -24,10 +24,13 @@ class _BildirimAyarlariState extends State<BildirimAyarlari> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double buttonWidth = screenWidth * 0.6; // Ekran genişliğinin %80'i
-    final double buttonHeight = screenHeight * 0.08; // Ekran yüksekliğinin %8'i
-    final double fontSize = screenWidth * 0.06; // Ekran genişliğinin %5'i
-    final double spacing = screenHeight * 0.03; // Ekran yüksekliğinin %3'ü
+
+    // Ekran boyutuna göre oransal değerler
+    final double buttonWidth = screenWidth * 0.8;
+    final double buttonHeight = screenHeight * 0.08;
+    final double buttonSpacing = screenHeight * 0.04;
+    final double buttonFontSize = screenWidth * 0.055;
+    final double titleFontSize = screenWidth * 0.08;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(188, 255, 174, 154),
@@ -36,7 +39,7 @@ class _BildirimAyarlariState extends State<BildirimAyarlari> {
           'Bildirim Ayarları',
           style: TextStyle(
             color: Colors.white,
-            fontSize: screenWidth * 0.06, // Ekran genişliğinin %6'sı
+            fontSize: titleFontSize,
           ),
         ),
         backgroundColor: Colors.transparent,
@@ -54,25 +57,25 @@ class _BildirimAyarlariState extends State<BildirimAyarlari> {
                   setState(() {
                     notificationsEnabled = true;
                   });
-                  _showNotificationAlert('Bildirimler açıldı');
+                  _showNotificationAlert('Bildirimler açıldı', true);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: Text(
                   'Bildirimleri Aç',
                   style: TextStyle(
-                    fontSize: fontSize,
+                    fontSize: buttonFontSize,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: spacing),
+            SizedBox(height: buttonSpacing),
             SizedBox(
               width: buttonWidth,
               height: buttonHeight,
@@ -81,18 +84,18 @@ class _BildirimAyarlariState extends State<BildirimAyarlari> {
                   setState(() {
                     notificationsEnabled = false;
                   });
-                  _showNotificationAlert('Bildirimler kapatıldı');
+                  _showNotificationAlert('Bildirimler kapatıldı', false);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: Text(
                   'Bildirimleri Kapat',
                   style: TextStyle(
-                    fontSize: fontSize,
+                    fontSize: buttonFontSize,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
