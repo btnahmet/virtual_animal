@@ -12,7 +12,7 @@ class _KullaniciYonetimiState extends State<KullaniciYonetimi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kullanıcı Yönetimi'),
+        title: const Text('Kullanıcı Yönetimi'),
         
       ));
   }

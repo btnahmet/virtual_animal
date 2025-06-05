@@ -11,9 +11,9 @@ class GameRenkEsleme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const RenkEslemeEkrani(),
+      home: RenkEslemeEkrani(),
     );
   }
 }
@@ -132,7 +132,7 @@ class _RenkEslemeEkraniState extends State<RenkEslemeEkrani> {
             fontWeight: FontWeight.bold,
           ),
           ),
-              backgroundColor: Color.fromARGB(255, 250, 126, 59), // Arka plan rengi
+              backgroundColor: const Color.fromARGB(255, 250, 126, 59), // Arka plan rengi
           // hedefRenk,
         ),
               backgroundColor: const Color.fromARGB(255, 241, 153, 105), // Arka plan rengi

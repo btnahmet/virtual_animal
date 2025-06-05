@@ -42,8 +42,9 @@ class _MemoryGameScreenState extends State<MemoryGameScreen> {
   }
 
   void _selectCard(int index) {
-    if (_revealed[index] || _matched[index] || _gameFinished || _waiting)
+    if (_revealed[index] || _matched[index] || _gameFinished || _waiting) {
       return;
+    }
 
     setState(() {
       _revealed[index] = true;
@@ -127,10 +128,10 @@ class _MemoryGameScreenState extends State<MemoryGameScreen> {
         appBar: AppBar(
           title: Padding(
             padding: EdgeInsets.all(screenWidth * 0.05),
-            child: Text("Hafıza Oyunu",
+            child: const Text("Hafıza Oyunu",
             style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
           ),
-          backgroundColor: Color.fromARGB(255, 175, 129, 255),
+          backgroundColor: const Color.fromARGB(255, 175, 129, 255),
           automaticallyImplyLeading: false,
         ),
         backgroundColor: Colors.white,

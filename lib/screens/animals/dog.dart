@@ -15,7 +15,7 @@ class Dog extends StatelessWidget {
       onGameNavigate: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => GameHomePage()),
+          MaterialPageRoute(builder: (context) => const GameHomePage()),
         );
       },
     );

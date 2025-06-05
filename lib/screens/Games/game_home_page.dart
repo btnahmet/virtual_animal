@@ -16,7 +16,7 @@ class GameHomePage extends StatelessWidget {
         appBar: AppBar(
           title:  Padding(
             padding: EdgeInsets.all(screenWidth * 0.04),
-            child: Text("OYUNLAR",
+            child: const Text("OYUNLAR",
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold
@@ -24,7 +24,7 @@ class GameHomePage extends StatelessWidget {
             ),
           ),
           automaticallyImplyLeading: false,
-          backgroundColor: Color.fromARGB(255, 255, 123, 0)
+          backgroundColor: const Color.fromARGB(255, 255, 123, 0)
         ),
       backgroundColor: const Color.fromARGB(255, 241, 153, 105), // Arka plan rengi
         body: Padding(
@@ -83,7 +83,7 @@ class GameHomePage extends StatelessWidget {
                   }
                 : null, // Henüz oyun yoksa buton devre dışı
             style: ElevatedButton.styleFrom(
-              backgroundColor: gameScreen != null ? Color.fromARGB(255, 255, 123, 0) : Colors.grey,
+              backgroundColor: gameScreen != null ? const Color.fromARGB(255, 255, 123, 0) : Colors.grey,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               padding: const EdgeInsets.symmetric(vertical: 15),

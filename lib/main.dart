@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_animal/screens/home_page.dart';
+import 'package:virtual_animal/screens/login.dart';
 // Register sınıfını dahil ettik
 
 void main() {
@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Flutter Demo', 
       theme: ThemeData(),
-      home: const HomePage(), // Home yerine doğrudan Login sınıfı kullanılıyor
+      home:  const Login(), // Home yerine doğrudan Login sınıfı kullanılıyor 
     );
   }
 }
