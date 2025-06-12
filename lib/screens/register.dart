@@ -35,20 +35,22 @@ class _RegisterState extends State<Register> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       // Kullanıcı bilgilerini kaydet
-      UserData.saveUserData(
+      await UserData.saveUserData(
         _emailController.text,
         _passwordController.text,
         _nameController.text,
       );
       
       // Login sayfasına yönlendir
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Login()),
-      );
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Login()),
+        );
+      }
     }
   }
 

@@ -15,23 +15,27 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       // Kullanıcı bilgilerini kontrol et
-      if (UserData.validateUser(_emailController.text, _passwordController.text)) {
+      if (await UserData.validateUser(_emailController.text, _passwordController.text)) {
         // Giriş başarılıysa HomePage'e yönlendirme
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        }
       } else {
         // Hata mesajı göster
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Email veya şifre hatalı!'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Email veya şifre hatalı!'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       }
     }
   }

@@ -15,20 +15,22 @@ class _RegisterParentsState extends State<RegisterParents> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       // Ebeveyn bilgilerini kaydet
-      ParentData.saveParentData(
+      await ParentData.saveParentData(
         _emailController.text,
         _passwordController.text,
         _nameController.text,
       );
       
       // Login sayfasına yönlendir
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginParents()),
-      );
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginParents()),
+        );
+      }
     }
   }
 
