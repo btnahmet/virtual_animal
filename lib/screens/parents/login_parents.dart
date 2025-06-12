@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_animal/screens/home_page.dart';
 import 'package:virtual_animal/screens/parents/page_parents.dart'; // HomePage import edildi
+import 'package:virtual_animal/screens/parents/register_parents.dart';
+import 'package:virtual_animal/database/parent_data.dart';
 
 class LoginParents extends StatefulWidget {
   const LoginParents({super.key});
@@ -16,14 +18,22 @@ class _LoginParentsState extends State<LoginParents> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      print("Email: ${_emailController2.text}");
-      print("Parola: ${_passwordController2.text}");
-
-      // Giriş başarılıysa HomePage'e yönlendirme      
-      Navigator.pushReplacement( 
-        context,
-        MaterialPageRoute(builder: (context) => const PageParents()),
-      );
+      // Ebeveyn bilgilerini kontrol et
+      if (ParentData.validateParent(_emailController2.text, _passwordController2.text)) {
+        // Giriş başarılıysa PageParents'e yönlendirme
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const PageParents()),
+        );
+      } else {
+        // Hata mesajı göster
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Email veya şifre hatalı!'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -77,20 +87,25 @@ class _LoginParentsState extends State<LoginParents> {
                 ),
               ),
               const SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const Register()),
-                  // );
-                },
-                child: const Text(
-                  "Henüz hesabın yok mu? Üye Ol",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 124, 50, 10),
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
+              SizedBox(
+                width: screenWidth * 0.7,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const RegisterParents()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 250, 102, 44),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  child: const Text(
+                    "Hesabın yok mu? Üye Ol",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
               ),
