@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_animal/screens/register.dart';
 import 'package:virtual_animal/screens/home_page.dart'; // HomePage import edildi
+import 'package:virtual_animal/database/user_data.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,14 +17,22 @@ class _LoginState extends State<Login> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      print("Email: ${_emailController.text}");
-      print("Parola: ${_passwordController.text}");
-
-      // Giriş başarılıysa HomePage'e yönlendirme
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
+      // Kullanıcı bilgilerini kontrol et
+      if (UserData.validateUser(_emailController.text, _passwordController.text)) {
+        // Giriş başarılıysa HomePage'e yönlendirme
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      } else {
+        // Hata mesajı göster
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Email veya şifre hatalı!'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 

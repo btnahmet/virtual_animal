@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_animal/screens/home_page.dart'; // HomePage import edildi
+import 'package:virtual_animal/screens/home_page.dart';
+import 'package:virtual_animal/screens/parents/page_parents.dart'; // HomePage import edildi
 
 class LoginParents extends StatefulWidget {
   const LoginParents({super.key});
@@ -18,10 +19,10 @@ class _LoginParentsState extends State<LoginParents> {
       print("Email: ${_emailController2.text}");
       print("Parola: ${_passwordController2.text}");
 
-      // Giriş başarılıysa HomePage'e yönlendirme
+      // Giriş başarılıysa HomePage'e yönlendirme      
       Navigator.pushReplacement( 
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const PageParents()),
       );
     }
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_animal/screens/login.dart';
+import 'package:virtual_animal/database/user_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,9 +37,18 @@ class _RegisterState extends State<Register> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      print("İsim: ${_nameController.text}");
-      print("Email: ${_emailController.text}");
-      print("Şifre: ${_passwordController.text}");
+      // Kullanıcı bilgilerini kaydet
+      UserData.saveUserData(
+        _emailController.text,
+        _passwordController.text,
+        _nameController.text,
+      );
+      
+      // Login sayfasına yönlendir
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
     }
   }
 

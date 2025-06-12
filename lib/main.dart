@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo', 
       theme: ThemeData(),
-      home:  HomePage(), // Home yerine doğrudan Login sınıfı kullanılıyor 
+      home:  Login(), // Home yerine doğrudan Login sınıfı kullanılıyor 
     );
   }
 }
