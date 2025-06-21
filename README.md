@@ -16,6 +16,22 @@
 
 ![Ekran görüntüsü 2025-06-21 150940](https://github.com/user-attachments/assets/f725b3a2-da3e-43a8-8dd9-4310ddf7d99e)
 
+![Ekran görüntüsü 2025-06-21 150910](https://github.com/user-attachments/assets/07ca252e-43fb-417b-959b-28b0af4ee835)
+
+![Ekran görüntüsü 2025-06-21 150902](https://github.com/user-attachments/assets/10e3c0a6-f856-4c4e-a662-8f93e386603c)
+
+![Ekran görüntüsü 2025-06-21 150850](https://github.com/user-attachments/assets/f61e4cde-bd13-432c-82ef-8a6251d0f819)
+
+![Ekran görüntüsü 2025-06-21 150838](https://github.com/user-attachments/assets/57557d38-edb6-4c36-a13d-40b3ecd9d5be)
+
+![Ekran görüntüsü 2025-06-21 150735](https://github.com/user-attachments/assets/9f4eb9b0-af0a-4a37-ac90-3af4a1c4c6bb)
+
+![Ekran görüntüsü 2025-06-21 150708](https://github.com/user-attachments/assets/c5dc8993-a5c6-4cf6-9c39-414920885147)
+
+
+
+
+
 
 ## 🛠️ Kurulum & Çalıştırma
 
